@@ -1,9 +1,11 @@
 package db
 
 import (
-	"NResoureceLibraryServer/db/gorm"
+	"NResoureceLibraryServer/db/gormLink"
+
+	"gorm.io/gorm"
 )
 
-func Init_DB(dbConfig *gorm.DBConfig) {
-	gorm.LinkDBType(dbConfig)
+func Init_DB(dbConfig *gormLink.DBConfig) (*gorm.DB, error) {
+	return gormLink.LinkDBType(dbConfig)
 }

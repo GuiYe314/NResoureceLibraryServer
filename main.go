@@ -2,33 +2,38 @@ package main
 
 import (
 	"NResoureceLibraryServer/db"
-	"NResoureceLibraryServer/db/gorm"
+	"NResoureceLibraryServer/db/gormLink"
+	"NResoureceLibraryServer/net"
 	_ "NResoureceLibraryServer/net"
 
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 func main() {
 
-	LinkDB()
+	//连接数据库
+	dbLink, err := LinkDB()
+	if err != nil {
+		return
+	}
 
+	//初始化接口
 	r := gin.Default()
-	r.GET("/", func(c *gin.Context) {
-		c.String(200, "Hello, Geektutu")
-	})
+	net.Init(dbLink, r)
 
 	r.Run(":3100") // listen and serve on 0.0.0.0:8080
 }
 
-func LinkDB() {
-	var dbConfig *gorm.DBConfig = new(gorm.DBConfig)
+func LinkDB() (*gorm.DB, error) {
+	var dbConfig *gormLink.DBConfig = new(gormLink.DBConfig)
 	dbConfig.DBName = "NResoureceLibraryServerDB"
 	dbConfig.Host = "guiyewyc.top"
 	dbConfig.Password = "159357"
 	dbConfig.Port = "3306"
 	dbConfig.UserName = "root"
-	dbConfig.Type = gorm.DB_Mysql
+	dbConfig.Type = gormLink.DB_Mysql
 	//链接数据库
-	db.Init_DB(dbConfig)
+	return db.Init_DB(dbConfig)
 
 }
