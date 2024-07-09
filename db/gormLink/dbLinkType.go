@@ -1,9 +1,7 @@
 package gormLink
 
 import (
-	"database/sql"
 	"fmt"
-	"time"
 
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
@@ -49,25 +47,5 @@ func (mySqlLinkTyep MySqlLinkTyep) LinkDB(dbConfig *DBConfig) (*gorm.DB, error) 
 	}
 	mySqlLinkTyep.db = db
 	fmt.Println("数据库链接成功：" + db.Name())
-
-	//测试创建表
-	err = db.AutoMigrate(&User{})
-	if err != nil {
-		panic("无法创建users表")
-	}
-
 	return db, nil
-}
-
-// User 结构体对应users表中的一行数据
-type User struct {
-	ID        uint   `gorm:"primarykey"`
-	UserID    string // 用户ID（通常与主键ID相同或使用UUID等唯一标识符）
-	UserName  string `gorm:"size:255;unique"` // 用户名，唯一
-	Password  string `gorm:"size:255"`        // 密码
-	Email     string `gorm:"size:255;unique"` // 电子邮件，唯一
-	Gender    string `gorm:"size:10"`         // 性别
-	CreatedAt time.Time
-	UpdatedAt time.Time
-	DeletedAt sql.NullTime `gorm:"index"`
 }
