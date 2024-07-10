@@ -20,6 +20,7 @@ func main() {
 
 	//初始化接口
 	r := gin.Default()
+
 	net.Init(dbLink, r)
 
 	r.Run(":3100") // listen and serve on 0.0.0.0:8080

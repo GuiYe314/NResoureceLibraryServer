@@ -8,6 +8,15 @@ import (
 )
 
 func Init(dbLink *gorm.DB, netLink *gin.Engine) {
+
+	//认证接口组
+	auth := netLink.Group("/auth")
+
+	auth.Use(jwtAuthMiddleware())
+	{
+		auth.GET("/FindModelAll", FindModelAll)
+	}
+
 	CreateDataTable(dbLink)
 	Init_Login(dbLink, netLink)
 }
