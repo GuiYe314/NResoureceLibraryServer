@@ -24,4 +24,5 @@ func Init(dbLink *gorm.DB, netLink *gin.Engine) {
 // 自动创建数据库
 func CreateDataTable(dbLink *gorm.DB) {
 	dbLink.AutoMigrate(&netModel.Users{})
+	dbLink.AutoMigrate(&netModel.Contents{})
 }
