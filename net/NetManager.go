@@ -25,4 +25,10 @@ func Init(dbLink *gorm.DB, netLink *gin.Engine) {
 func CreateDataTable(dbLink *gorm.DB) {
 	dbLink.AutoMigrate(&netModel.Users{})
 	dbLink.AutoMigrate(&netModel.Contents{})
+	dbLink.AutoMigrate(&netModel.Tags{})
+	dbLink.AutoMigrate(&netModel.TagsType{})
+	dbLink.AutoMigrate(&netModel.Resource{})
+	dbLink.AutoMigrate(&netModel.ResourceImage{})
+	dbLink.AutoMigrate(&netModel.ResourceVideo{})
+	dbLink.AutoMigrate(&netModel.ResourceModel{})
 }
